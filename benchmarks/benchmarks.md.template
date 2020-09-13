@@ -1,0 +1,106 @@
+# All Times
+
+Generated with
+```sh
+$ sh popbench_run.sh --fast
+```
+This simulates calling each function 10000 times with each argument count.
+
+<table:all>
+
+# Functions
+
+## basic
+
+The simplest function to compute the pop expression, uses a naive algorithm to
+generate a list of parameters minus the last one.
+```sh
+$ sh popgen.sh
+```
+<table:basic>
+
+## basic-ext
+
+The same as basic but use bash/ksh/zsh extensions. Causes immense speed ups in
+bash and ksh by using the `+=` operator instead of concatenating strings with `=`.
+```sh
+$ sh popgen.sh -+
+```
+<table:basic-ext>
+
+## posix
+
+A function that is meant to be small but efficient on POSIX shells.
+Uses the basic algorithm for arguments less than 500, otherwise use external tools.
+```sh
+$ sh popgen.sh -t500
+```
+<table:posix>
+
+## subarray
+
+Uses the subarray method of removing the last parameter, i.e. `set -- "${@:1:$# - 1}"`.
+```sh
+$ sh popgen.sh -+ -@
+```
+<table:subarray>
+
+## final
+
+Combines subarray and posix, using the former for zsh and bash and the latter for the rest.
+```sh
+$ sh popgen.sh -@ -t500
+```
+<table:final>
+
+## g100
+
+Used to test an alternative to external tools, concatenating the strings in batches.
+```sh
+$ sh popgen.sh -x9 -g10,100
+```
+<table:g100>
+
+## g100-ext
+
+Same as `g100` but uses bash/ksh/zsh extensions, specifically the `+=` string concatenation.
+```sh
+$ sh popgen.sh -+ -x9 -g10,100
+```
+<table:g100-ext>
+
+## tool
+
+Combines batch concatenation with external tools. Merges all types of universal
+optimizations for a complex but consistently speedy function.
+
+```sh
+$ sh popgen.sh -x9 -g10 -t1000
+```
+<table:tool>
+
+## ctool
+
+Same as `tool` but uses the command `popsh` instead of `seq`/`sed`. This benchmark uses the implementation contained in `popsh.c`.
+
+```sh
+$ sh popgen.sh -x9 -g10 -t1000
+```
+<table:ctool>
+
+## pure-tool
+
+Uses only external tools. Has the advantage of being a one-liner but the disadvantage of a high overhead, so it's inefficient for low argument counts.
+```sh
+$ sh popgen.sh -t0
+```
+<table:pure-tool>
+
+## pure-ctool
+
+Same as pure-tool but uses `popsh`.
+```sh
+$ sh popgen.sh -c -t0
+```
+<table:pure-ctool>
+

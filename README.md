@@ -113,20 +113,20 @@ $ sh popbench.sh -s $shell -f $function -i 10000 -n 1,5,10,100,1000,10000
 `posix` refers to the second and third clauses, `subarray` refers to the first,
 while `final` refers to the whole.
 
-```sh
-value count 	      1 	      5 	     10 	    100 	   1000 	   10000
----------------------------------------------------------------------------------------
-dash/final  	  0m0.109s	  0m0.183s	  0m0.275s	  0m2.270s	 0m16.122s	 1m10.239s
-ash/final   	  0m0.104s	  0m0.175s	  0m0.273s	  0m2.337s	 0m15.428s	 1m11.673s
-ksh/final   	  0m0.409s	  0m0.557s	  0m0.737s	  0m3.558s	 0m19.200s	 1m40.264s
-bash/final  	  0m0.343s	  0m0.414s	  0m0.470s	  0m1.719s	 0m17.508s	 3m12.496s
----------------------------------------------------------------------------------------
-bash/subarray	  0m0.135s	  0m0.179s	  0m0.224s	  0m1.357s	 0m18.911s	 3m18.007s
-dash/posix  	  0m0.171s	  0m0.290s	  0m0.447s	  0m3.610s	 0m17.376s	  1m8.852s
-ash/posix   	  0m0.109s	  0m0.192s	  0m0.285s	  0m2.457s	 0m14.942s	 1m10.062s
-ksh/posix   	  0m0.416s	  0m0.581s	  0m0.768s	  0m4.677s	 0m18.790s	 1m40.407s
-bash/posix  	  0m0.409s	  0m0.739s	  0m1.145s	 0m10.048s	 0m58.449s	40m33.024s
-```
+| value counts       |           1 |           5 |          10 |         100 |        1000 |       10000 |
+| :----------------- | ----------: | ----------: | ----------: | ----------: | ----------: | ----------: |
+| `dash/final`       |   0m 0.109s |   0m 0.183s |   0m 0.275s |   0m 2.270s |   0m16.122s |   1m10.239s |
+| `ash/final`        |   0m 0.104s |   0m 0.175s |   0m 0.273s |   0m 2.337s |   0m15.428s |   1m11.673s |
+| `ksh/final`        |   0m 0.409s |   0m 0.557s |   0m 0.737s |   0m 3.558s |   0m19.200s |   1m40.264s |
+| `bash/final`       |   0m 0.343s |   0m 0.414s |   0m 0.470s |   0m 1.719s |   0m17.508s |   3m12.496s |
+| `bash/subarray`    |   0m 0.135s |   0m 0.179s |   0m 0.224s |   0m 1.357s |   0m18.911s |   3m18.007s |
+| `dash/posix`       |   0m 0.171s |   0m 0.290s |   0m 0.447s |   0m 3.610s |   0m17.376s |   1m 8.852s |
+| `ash/posix`        |   0m 0.109s |   0m 0.192s |   0m 0.285s |   0m 2.457s |   0m14.942s |   1m10.062s |
+| `ksh/posix`        |   0m 0.416s |   0m 0.581s |   0m 0.768s |   0m 4.677s |   0m18.790s |   1m40.407s |
+| `bash/posix`       |   0m 0.409s |   0m 0.739s |   0m 1.145s |   0m10.048s |   0m58.449s |  40m33.024s |
+| `bash/pure-tool`   |   0m13.420s |   0m17.283s |   0m14.500s |   0m20.177s |   0m58.152s |  39m41.456s |
+| `dash/pure-tool`   |   0m12.053s |   0m11.008s |   0m15.362s |   0m12.033s |   0m20.204s |   1m 7.662s |
+
 ## On zsh
 
 For large argument counts setting `set -- ...` with eval is very slow on zsh no
@@ -135,14 +135,12 @@ simple a modification as changing it to `eval "set -- ${@:1:$# - 1}"`
 (ignoring that it doesn't work for arguments with spaces) makes it two orders
 of magnitude slower.
 
-```sh
-value count 	      1 	      5 	     10 	    100 	   1000 	   10000
----------------------------------------------------------------------------------------
-zsh/subarray	  0m0.203s	  0m0.227s	  0m0.233s	  0m0.461s	  0m3.643s	 0m38.396s
-zsh/final   	  0m0.399s	  0m0.416s	  0m0.441s	  0m0.722s	  0m4.205s	 0m37.217s
-zsh/posix   	  0m0.718s	  0m0.913s	  0m1.182s	  0m6.200s	 0m46.516s	42m27.224s
-zsh/eval-zsh	  0m0.419s	  0m0.353s	  0m0.375s	  0m0.853s	  0m5.771s	32m59.576s
-```
+| value counts       |           1 |           5 |          10 |         100 |        1000 |       10000 |
+| :----------------- | ----------: | ----------: | ----------: | ----------: | ----------: | ----------: |
+| `zsh/subarray`     |   0m 0.203s |   0m 0.227s |   0m 0.233s |   0m 0.461s |   0m 3.643s |   0m38.396s |
+| `zsh/final`        |   0m 0.399s |   0m 0.416s |   0m 0.441s |   0m 0.722s |   0m 4.205s |   0m37.217s |
+| `zsh/posix`        |   0m 0.718s |   0m 0.913s |   0m 1.182s |   0m 6.200s |   0m46.516s |  42m27.224s |
+| `zsh/eval-zsh`     |   0m 0.419s |   0m 0.353s |   0m 0.375s |   0m 0.853s |   0m 5.771s |  32m59.576s |
 
 ## More benchmarks
 

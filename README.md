@@ -124,8 +124,6 @@ while `final` refers to the whole.
 | `ash/posix`        |   0m 0.109s |   0m 0.192s |   0m 0.285s |   0m 2.457s |   0m14.942s |   1m10.062s |
 | `ksh/posix`        |   0m 0.416s |   0m 0.581s |   0m 0.768s |   0m 4.677s |   0m18.790s |   1m40.407s |
 | `bash/posix`       |   0m 0.409s |   0m 0.739s |   0m 1.145s |   0m10.048s |   0m58.449s |  40m33.024s |
-| `bash/pure-tool`   |   0m13.420s |   0m17.283s |   0m14.500s |   0m20.177s |   0m58.152s |  39m41.456s |
-| `dash/pure-tool`   |   0m12.053s |   0m11.008s |   0m15.362s |   0m12.033s |   0m20.204s |   1m 7.662s |
 
 ## On zsh
 
